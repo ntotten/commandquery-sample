@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@if (false)
+{ 
+    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jquery-1.6.2.js" type="text/javascript"></script>
+    <script src="../../Scripts/modernizr-2.0.6-development-only.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.validate.js" type="text/javascript"></script>
+}
+<h2>
+    Registration</h2>
+<div id="form">
+    <form action="/Registration/Register" method="post" id="register">
+    <fieldset>
+        <legend>Registration Form</legend>
+        <p>
+            <label>
+                First Name</label>
+            <input type="text" name="firstName" class="required" />
+        </p>
+        <p>
+            <label>
+                Last Name</label>
+            <input type="text" name="lastName" class="required" />
+        </p>
+        <p>
+            <label>
+                Email</label>
+            <input type="email" name="email" class="required email" />
+        </p>
+        <p>
+            <label>
+                Date of Birth</label>
+            <input type="date" name="dateOfBirth" class="required date" />
+        </p>
+        <p>
+            <input type="submit" value="Register" />
+        </p>
+    </fieldset>
+    </form>
+</div>
+<div id="waiting">
+    <span id="waitingText">Please wait while we register your account.</span>
+    <img src="../../Content/wait24.gif" />
+</div>
+<div id="token">
+    <p>
+        Your registration has been processed. Save this token for your records: <span id="txtToken">
+        </span>.
+    </p>
+</div>
+<script type="text/javascript">
+    var waitingId = null;
+    var tokenUrl = null;
+    $(document).ready(function () {
+        step(0);
+        $('#register').validate({
+            submitHandler: function (form) {
+                $(form).ajaxSubmit(function (result) {
+                    tokenUrl = result.container;
+                    waitingId = setInterval('checkForToken()', 1000);
+                    step(1);
+                });
+            }
+        })
+    });
+
+    function checkForToken() {
+        try {
+            $.ajax({
+                type: "GET",
+                url: tokenUrl,
+                dataType: "jsonp",
+                jsonpCallback: 'registrationtokenentityCallback'
+            });
+        } catch (ex) { }
+    }
+
+    function registrationtokenentityCallback(data) {
+        var regToken = data.RegistrationToken;
+        if (regToken != null) {
+            clearInterval(waitingId);
+            $('#txtToken').text(regToken);
+            step(2);
+        }
+    }
+
+    function step(i) {
+        switch (i) {
+            case 0:
+                $('#form').show();
+                $('#waiting').hide();
+                $('#token').hide();
+                break;
+            case 1:
+                $('#form').hide();
+                $('#waiting').show();
+                $('#token').hide();
+                break;
+            case 2:
+                $('#form').hide();
+                $('#waiting').hide();
+                $('#token').show();
+                break;
+        }
+    }
+
+</script>
