@@ -45,6 +45,7 @@ namespace WorkerRole1
                         var entity = new RegistrationTokenEntity();
                         entity.RegistrationToken = (new Random()).Next().ToString();
                         registrationBlob.Save(message.ContainerId, entity);
+                        queue.DeleteMessage(message);
                     }
                 }
                 catch { }

@@ -19,9 +19,7 @@
   </WebRole>
   <WorkerRole name="WorkerRole1" vmsize="Small">
     <Imports>
+      <Import moduleName="Diagnostics" />
     </Imports>
-    <ConfigurationSettings>
-      <Setting name="DataConnectionString" />
-    </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>
