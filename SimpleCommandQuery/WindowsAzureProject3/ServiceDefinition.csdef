@@ -1,13 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="WindowsAzureProject3" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WorkerRole name="WorkerRole1" vmsize="Small">
-    <Imports>
-    </Imports>
-    <ConfigurationSettings>
-      <Setting name="DataConnectionString" />
-    </ConfigurationSettings>
-  </WorkerRole>
-  <WebRole name="MvcWebRole2" vmsize="Small">
+  <WebRole name="MvcWebRole2" vmsize="ExtraSmall">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -24,4 +17,9 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
+  <WorkerRole name="WorkerRole1" vmsize="Small">
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+  </WorkerRole>
 </ServiceDefinition>

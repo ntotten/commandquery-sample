@@ -9,46 +9,44 @@
     <script src="../../Scripts/jquery.validate.js" type="text/javascript"></script>
 }
 <h2>
-    Registration</h2>
+    Command-Query Registration Sample</h2>
 <div id="form">
-    <form action="/Registration/Register" method="post" id="register">
+    <form action="/Registration/Register" method="post" id="register" class="niceform">
     <fieldset>
         <legend>Registration Form</legend>
-        <p>
-            <label>
-                First Name</label>
-            <input type="text" name="firstName" class="required" />
-        </p>
-        <p>
-            <label>
-                Last Name</label>
-            <input type="text" name="lastName" class="required" />
-        </p>
-        <p>
-            <label>
-                Email</label>
-            <input type="email" name="email" class="required email" />
-        </p>
-        <p>
-            <label>
-                Date of Birth</label>
-            <input type="date" name="dateOfBirth" class="required date" />
-        </p>
-        <p>
-            <input type="submit" value="Register" />
-        </p>
+        <label>
+            First Name</label>
+        <input type="text" name="firstName" class="required" />
+        <label>
+            Last Name</label>
+        <input type="text" name="lastName" class="required" />
+        <label>
+            Email</label>
+        <input type="email" name="email" class="required email" />
+        <label>
+            Date of Birth</label></dt>
+        <input type="date" name="dateOfBirth" class="required date" />
+        <input type="submit" value="Register" />
     </fieldset>
     </form>
 </div>
-<div id="waiting">
-    <span id="waitingText">Please wait while we register your account.</span>
-    <img src="../../Content/wait24.gif" />
+<div id="waiting" class="form-result">
+    <fieldset>
+        <legend>Processing Registration</legend>
+        <p>
+            <span id="waitingText">Please wait while we register your account.</span>
+            <img src="../../Content/img/wait24.gif" /></p>
+    </fieldset>
 </div>
-<div id="token">
-    <p>
-        Your registration has been processed. Save this token for your records: <span id="txtToken">
-        </span>.
-    </p>
+<div id="token" class="form-result">
+    <fieldset>
+        <legend>Registration Complete</legend>
+        <p>
+            Your registration has been processed.</p>
+        <p>
+            Registration Token: <span id="txtToken"></span>
+        </p>
+    </fieldset>
 </div>
 <script type="text/javascript">
     var waitingId = null;

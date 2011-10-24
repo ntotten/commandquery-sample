@@ -6,6 +6,8 @@ using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.Samples.WindowsAzure.Storage;
 using Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MvcWebRole2
 {
@@ -28,8 +30,28 @@ namespace MvcWebRole2
             AzureQueue<UserRegistrationMessage> queue = new AzureQueue<UserRegistrationMessage>(account);
             queue.EnsureExist();
 
-            AzureBlobContainer<RegistrationTokenEntity> registrationBlob = new AzureBlobContainer<RegistrationTokenEntity>(account);
+            AzureBlobContainer<RegistrationTokenEntity> registrationBlob = new AzureBlobContainer<RegistrationTokenEntity>(account, true);
             registrationBlob.EnsureExist();
+
+            // We could do the 'worker role' portion here aslo
+            //Task.Factory.StartNew(() =>
+            //{
+            //    while (true)
+            //    {
+            //        try
+            //        {
+            //            var message = queue.GetMessage();
+            //            if (message != null)
+            //            {
+            //                var entity = new RegistrationTokenEntity();
+            //                entity.RegistrationToken = (new Random()).Next().ToString();
+            //                registrationBlob.Save(message.ContainerId, entity);
+            //            }
+            //        }
+            //        catch { }
+            //        Thread.Sleep(5000);
+            //    }
+            //});
 
             return base.OnStart();
         }

@@ -1,47 +1,75 @@
 body
 {
     font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
 }
 
-header,
-footer,
-nav,
-section {
+header, footer, nav, section
+{
     display: block;
 }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
-
-fieldset 
+form
 {
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
+    width: 358px;
+}
+fieldset
+{
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
 }
 
-legend 
+legend
 {
-    font-size:1.2em;
+    font-size: 1.2em;
     font-weight: bold;
+    padding-bottom: 15px;
 }
 
-textarea 
+label
+{
+    padding-top: 5px;
+    display: block;
+    font-weight: bold;
+    text-align: right;
+    width: 100px;
+    float: left;
+}
+
+input
+{
+    font-size: 12px;
+    padding: 4px 2px;
+    border: solid 1px #aacfe4;
+    width: 200px;
+    margin: 2px 0 20px 10px;
+    float: left;
+}
+
+input[type=submit] 
+{
+    width: 75px;
+    float: right;
+}
+
+textarea
 {
     min-height: 75px;
 }
 
-.editor-label 
+.editor-label
 {
     margin: 1em 0 0 0;
 }
 
-.editor-field 
+.editor-field
 {
-    margin:0.5em 0 0 0;
+    margin: 0.5em 0 0 0;
 }
 
 
@@ -72,4 +100,9 @@ textarea
 .validation-summary-valid
 {
     display: none;
+}
+
+.form-result 
+{
+    width:400px;
 }
