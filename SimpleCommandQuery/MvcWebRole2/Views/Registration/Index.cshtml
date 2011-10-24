@@ -14,19 +14,29 @@
     <form action="/Registration/Register" method="post" id="register" class="niceform">
     <fieldset>
         <legend>Registration Form</legend>
+        <p>
         <label>
             First Name</label>
         <input type="text" name="firstName" class="required" />
+        </p>
+        <p>
         <label>
             Last Name</label>
         <input type="text" name="lastName" class="required" />
+                </p>
+        <p>
         <label>
             Email</label>
         <input type="email" name="email" class="required email" />
+                </p>
+        <p>
         <label>
             Date of Birth</label></dt>
         <input type="date" name="dateOfBirth" class="required date" />
+                </p>
+        <p>
         <input type="submit" value="Register" />
+        </p>
     </fieldset>
     </form>
 </div>
@@ -42,10 +52,7 @@
     <fieldset>
         <legend>Registration Complete</legend>
         <p>
-            Your registration has been processed.</p>
-        <p>
-            Registration Token: <span id="txtToken"></span>
-        </p>
+            Your registration has been processed. Registration Token: <span id="txtToken"></span></p>
     </fieldset>
 </div>
 <script type="text/javascript">

@@ -15,8 +15,9 @@ header, footer, nav, section
 -----------------------------------------------------------*/
 form
 {
-    width: 358px;
+    width: 600px;
 }
+
 fieldset
 {
     border: 1px solid #ddd;
@@ -28,17 +29,22 @@ legend
 {
     font-size: 1.2em;
     font-weight: bold;
-    padding-bottom: 15px;
 }
 
 label
 {
-    padding-top: 5px;
-    display: block;
-    font-weight: bold;
     text-align: right;
     width: 100px;
     float: left;
+    padding: 3px 10px 0 0;
+}
+
+label.error
+{
+    float: none;
+    color: red;
+    padding-left: .5em;
+    padding-top: 5px;
 }
 
 input
@@ -47,14 +53,13 @@ input
     padding: 4px 2px;
     border: solid 1px #aacfe4;
     width: 200px;
-    margin: 2px 0 20px 10px;
-    float: left;
 }
 
-input[type=submit] 
+input[type=submit]
 {
     width: 75px;
-    float: right;
+    float: left;
+    margin-left: 242px;
 }
 
 textarea
@@ -102,7 +107,7 @@ textarea
     display: none;
 }
 
-.form-result 
+.form-result
 {
-    width:400px;
+    width: 600px;
 }
