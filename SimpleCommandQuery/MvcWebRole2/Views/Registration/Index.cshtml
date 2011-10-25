@@ -62,10 +62,10 @@
         step(0);
         $('#register').validate({
             submitHandler: function (form) {
+                step(1);
                 $(form).ajaxSubmit(function (result) {
                     tokenUrl = result.container;
                     waitingId = setInterval('checkForToken()', 1000);
-                    step(1);
                 });
             }
         })
