@@ -25,6 +25,13 @@ namespace MvcWebRole2.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.RegistrationId = Guid.NewGuid().ToString();
+            var url = account.BlobEndpoint.ToString();
+            if (!url.EndsWith("/"))
+            {
+                url = url + "/";
+            }
+            ViewBag.TokenUrl = url + "registrationtoken/";
             return View();
         }
 
@@ -32,25 +39,16 @@ namespace MvcWebRole2.Controllers
         public ActionResult Register(RegisterModel model)
         {
             AzureQueue<UserRegistrationMessage> queue = new AzureQueue<UserRegistrationMessage>(account);
-            AzureBlobContainer<RegistrationTokenEntity> registrationBlob = new AzureBlobContainer<RegistrationTokenEntity>(account, true);
-
-            var containerId = Guid.NewGuid().ToString();
-            registrationBlob.Save(containerId, new RegistrationTokenEntity
-            {
-                RegistrationToken = null,
-            });
-            var blobContainer = registrationBlob.GetSharedAccessSignature(containerId, DateTime.Now.AddHours(1));
-
             queue.AddMessage(new UserRegistrationMessage
             {
                 DateOfBirth = model.DateOfBirth,
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                ContainerId = containerId,
+                RegistratoinId = model.RegistrationId,
             });
 
-            return Json(new { container = blobContainer });
+            return new EmptyResult();
         }
 
     }

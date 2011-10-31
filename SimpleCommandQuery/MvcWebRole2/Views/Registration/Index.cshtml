@@ -15,27 +15,28 @@
     <fieldset>
         <legend>Registration Form</legend>
         <p>
-        <label>
-            First Name</label>
-        <input type="text" name="firstName" class="required" />
+            <label>
+                First Name</label>
+            <input type="text" name="firstName" class="required" />
         </p>
         <p>
-        <label>
-            Last Name</label>
-        <input type="text" name="lastName" class="required" />
-                </p>
+            <label>
+                Last Name</label>
+            <input type="text" name="lastName" class="required" />
+        </p>
         <p>
-        <label>
-            Email</label>
-        <input type="email" name="email" class="required email" />
-                </p>
+            <label>
+                Email</label>
+            <input type="email" name="email" class="required email" />
+        </p>
         <p>
-        <label>
-            Date of Birth</label></dt>
-        <input type="date" name="dateOfBirth" class="required date" />
-                </p>
+            <label>
+                Date of Birth</label></dt>
+            <input type="date" name="dateOfBirth" class="required date" />
+        </p>
         <p>
-        <input type="submit" value="Register" />
+            <input type="hidden" name="registrationId" value="@ViewBag.RegistrationId" />
+            <input type="submit" value="Register" />
         </p>
     </fieldset>
     </form>
@@ -52,37 +53,41 @@
     <fieldset>
         <legend>Registration Complete</legend>
         <p>
-            Your registration has been processed. Registration Token: <span id="txtToken"></span></p>
+            Your registration has been processed. Registration Token: <span id="txtToken"></span>
+        </p>
     </fieldset>
 </div>
 <script type="text/javascript">
     var waitingId = null;
-    var tokenUrl = null;
+    var tokenUrl = '@ViewBag.TokenUrl';
+    var registrationId = '@ViewBag.RegistrationId';
     $(document).ready(function () {
         step(0);
         $('#register').validate({
             submitHandler: function (form) {
                 step(1);
-                $(form).ajaxSubmit(function (result) {
-                    tokenUrl = result.container;
-                    waitingId = setInterval('checkForToken()', 1000);
+                $(form).ajaxSubmit({ 
+                    data: { registratoinId : registrationId},
+                    success: function (result) {
+                        waitingId = setInterval('checkForToken()', 1000);
+                    }
                 });
             }
-        })
+        });
     });
 
     function checkForToken() {
         try {
             $.ajax({
                 type: "GET",
-                url: tokenUrl,
+                url: tokenUrl + registrationId,
                 dataType: "jsonp",
                 jsonpCallback: 'registrationtokenentityCallback'
             });
         } catch (ex) { }
     }
 
-    function registrationtokenentityCallback(data) {
+    function registrationtokenCallback(data) {
         var regToken = data.RegistrationToken;
         if (regToken != null) {
             clearInterval(waitingId);

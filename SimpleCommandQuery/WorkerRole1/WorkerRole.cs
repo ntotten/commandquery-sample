@@ -32,8 +32,8 @@ namespace WorkerRole1
             AzureQueue<UserRegistrationMessage> queue = new AzureQueue<UserRegistrationMessage>(account);
             queue.EnsureExist();
 
-            AzureBlobContainer<RegistrationTokenEntity> registrationBlob = new AzureBlobContainer<RegistrationTokenEntity>(account, true);
-            registrationBlob.EnsureExist();
+            AzureBlobContainer<RegistrationTokenEntity> registrationBlob = new AzureBlobContainer<RegistrationTokenEntity>(account, "registrationtoken", true);
+            registrationBlob.EnsureExist(true);
 
             while (true)
             {
@@ -44,7 +44,7 @@ namespace WorkerRole1
                     {
                         var entity = new RegistrationTokenEntity();
                         entity.RegistrationToken = (new Random()).Next().ToString();
-                        registrationBlob.Save(message.ContainerId, entity);
+                        registrationBlob.Save(message.RegistratoinId, entity);
                         queue.DeleteMessage(message);
                     }
                 }
